@@ -1,0 +1,10 @@
+/*去除默认样式*/
+body{
+    margin:0;
+    padding:0;
+    background-color: #eee;
+}
+* {
+    /*盒子外边距不单独占一个像素*/
+    box-sizing: border-box;
+}

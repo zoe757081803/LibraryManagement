@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.UserMapper">
+    <insert id="save">
+        insert into user(name, username, age, address, phone) values(#{name}, #{username}, #{age}, #{address}, #{phone})
+    </insert>
+    <update id="updateById">
+        update user set name = #{name}, username = #{username}, age = #{age}, address = #{address}, phone = #{phone} where id = #{id}
+    </update>
+    <delete id="deleteById">
+        delete from user where id = #{id}
+    </delete>
+    <!--    id是select方法名 返回类型是entity里user-->
+    <select id="list" resultType="com.example.springboot.entity.User">
+        select * from user
+    </select>
+<!--    模糊查询-->
+    <select id="listByCondition" resultType="com.example.springboot.entity.User">
+        select * from user
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%', #{ name }, '%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+<!--    根据id查找-->
+    <select id="getById" resultType="com.example.springboot.entity.User">
+        select * from user where id = #{id}
+    </select>
+</mapper>

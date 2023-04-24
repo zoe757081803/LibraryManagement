@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.ArticleMapper">
+    <insert id="save">
+        insert into article(name,author,digest,publishdate,source,grade,review,provider,category,text) values(#{name}, #{author}, #{digest}, #{publishdate}, #{source}, #{grade}, #{review}, #{provider}, #{category}, #{text})
+    </insert>
+    <update id="updateById">
+        update article set name = #{name}, author = #{author}, digest = #{digest}, publishdate = #{publishdate}, source = #{source}, grade = #{grade}, review = #{review}, provider = #{provider}, category = #{category}, text = #{text} where id = #{id}
+    </update>
+    <delete id="deleteById">
+        delete from article where id = #{id}
+    </delete>
+    <!--    id是select方法名 返回类型是entity里user-->
+    <select id="list" resultType="com.example.springboot.entity.Article">
+        select * from article
+        order by name
+    </select>
+    <!--    模糊查询-->
+    <select id="listByCondition" resultType="com.example.springboot.entity.Article">
+        select * from article
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%', #{name}, '%')
+            </if>
+        </where>
+        order by name
+    </select>
+
+    <!--    根据id查找-->
+    <select id="getById" resultType="com.example.springboot.entity.Article">
+        select * from article where id = #{id}
+    </select>
+</mapper>
